@@ -1,0 +1,21 @@
+html,
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue','Prompt','Kumbh Sans',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 62.5%;
+}
+
+.App{
+  font-size: 1rem;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-family: 'Prompt', sans-serif;
+}
+
+.container {
+  margin: 8rem auto 0 auto;
+  max-width: 120rem;
+}
