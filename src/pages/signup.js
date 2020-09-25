@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { setAlert } from '../redux/actions/alertActions';
 import { signUp } from '../redux/actions/authActions';
-const Signup = ({ setAlert, signUp }) => {
+const Signup = ({ setAlert, signUp, isAuthenticated }) => {
 
     const [userData,setUserData ] = useState({
         email: '',
@@ -65,33 +65,13 @@ const Signup = ({ setAlert, signUp }) => {
         const {fname,lname,email,password,password2} = newUser
         
         signUp({fname,lname,email,password,password2});
-
-
-        // axios.post('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/signup', newUser )
-        // .then( (res) => {
-        //     console.log(res.data);
-        //     localStorage.setItem('FBIdToken',`Bearer ${res.data.token_}`)
-        //     setUserData({ ...userData,loading: false})
-        //     history.push("/login");
-            
-        // }).catch((err) => {
-        //     //console.log(err.response.data)
-        //     setUserData({...userData,
-        //         errors : err.response.data,
-        //         loading : false
-        //     })
-
-        //     console.log(userData)
-            
-        // })
-
-
-        
-
-        //console.log("Submit!")
     }
 
     const classes = useStyles();
+
+    if(isAuthenticated){
+        return <Redirect to='/dashboard'/>
+    }
     return (
         <Grid container xs={12} className={classes.form}>
         <Grid item sm={3} />
@@ -214,7 +194,11 @@ Signup.propTypes = {
     signUp: PropTypes.func.isRequired,
 }
 
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated
+})
+
 export default connect(
-    null,
+    mapStateToProps,
     { setAlert , signUp}
 )(Signup);

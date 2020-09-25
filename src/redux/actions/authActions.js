@@ -88,7 +88,7 @@ export const loadUser = () => async dispatch => {
     }
 
     try{
-        const res = await axios.get('http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/user');
+        const res = await axios.get('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/user');
 
         dispatch({
             type: USER_LOADED,

@@ -5,7 +5,9 @@ import home from './pages/home';
 import login from './pages/login';
 import signup from './pages/signup';
 import Navbar from './Components/Navbar';
-import dashboard from './pages/dashboard'
+import dashboard from './pages/dashboard';
+import CreateParty from './pages/createParty';
+import  Kyc  from './pages/kyc';
 import jwtDecode from 'jwt-decode';
 import { setAuthToken } from './Utils/setAuthToken';
 import Alerted from './Components/Alerted';
@@ -20,7 +22,7 @@ const theme = createMuiTheme({
   typography: {
     fontFamily: [
       'Kumbh Sans',
-      'Prompt'].join(',')
+      'Prompt'].join(','),
   }
 });
 
@@ -34,6 +36,7 @@ const  App = () => {
   useEffect( () => {
     store.dispatch(loadUser());
   },[]);
+
  
   return (
     <Provider store={store}>
@@ -48,6 +51,8 @@ const  App = () => {
               <Route exact path='/login' component={login} />
               <Route exact path='/signup' component={signup} />
               <PrivateRoute exact path='/dashboard' component={dashboard}/>
+              <PrivateRoute exact path='/createParty' component={CreateParty}/>
+              <PrivateRoute exact path='/kyc' component={Kyc}/>
             </Switch>
           </div>
         </Router>

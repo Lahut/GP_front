@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 //Redux
 import { connect } from 'react-redux';
-import { login } from '../redux/actions/authActions';
+
+
 const Dashboard = ({user}) => {
 
 
