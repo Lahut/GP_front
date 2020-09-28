@@ -8,6 +8,9 @@ import Navbar from './Components/Navbar';
 import dashboard from './pages/dashboard';
 import CreateParty from './pages/createParty';
 import  Kyc  from './pages/kyc';
+import AddBank from './pages/AddBank';
+import ShowBank from './pages/ShowBank';
+import profile from './pages/Profile';
 import jwtDecode from 'jwt-decode';
 import { setAuthToken } from './Utils/setAuthToken';
 import Alerted from './Components/Alerted';
@@ -53,6 +56,9 @@ const  App = () => {
               <PrivateRoute exact path='/dashboard' component={dashboard}/>
               <PrivateRoute exact path='/createParty' component={CreateParty}/>
               <PrivateRoute exact path='/kyc' component={Kyc}/>
+              <PrivateRoute exact path='/addBank' component={AddBank}/>
+              <PrivateRoute exact path='/showBank' component={ShowBank}/>
+              <PrivateRoute exact path='/profile' component={profile}/>
             </Switch>
           </div>
         </Router>
