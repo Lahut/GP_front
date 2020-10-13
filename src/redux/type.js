@@ -12,3 +12,4 @@ export const PROFILE_ERROR = 'LOGOUT';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const BANK_LOADED = 'BANK_LOADED';
 export const BANK_LOADED_ERROR = 'BANK_LOADED_ERROR';
+export const CREATE_PARTY = 'CREATE_PARTY';

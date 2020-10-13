@@ -14,11 +14,12 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { loadBank } from '../redux/actions/bankingActions';
+import { CreatePartyy } from '../redux/actions/userActions';
 import bankingReducer from '../redux/reducers/bankingReducer';
 
 
 
-const  CreateParty = ({bank,loadBank}) => {
+const  CreateParty = ({bank,loadBank,CreatePartyy}) => {
 
 
     useEffect( () =>{
@@ -45,7 +46,7 @@ const  CreateParty = ({bank,loadBank}) => {
         t_member:0,
         category:'',
         price:0,
-        bankDetail:'',
+        paymentDetail:'',
         desc:'',
         thumbnail:{}
     })
@@ -68,8 +69,16 @@ const  CreateParty = ({bank,loadBank}) => {
         console.log(formData)
         const DataForm = new FormData();
         //append field here
+        DataForm.append('name',formData.name);
+        DataForm.append('t_member',formData.t_member);
+        DataForm.append('category',formData.category);
+        DataForm.append('price',formData.price);
+        DataForm.append('paymentDetail',formData.paymentDetail);
+        DataForm.append('desc',formData.desc);
+        DataForm.append('file',formData.thumbnail);
         DataForm.append('','');
 
+        CreatePartyy({DataForm})
         
 
 
@@ -175,9 +184,9 @@ const  CreateParty = ({bank,loadBank}) => {
                                 labelId="demo-simple-select-filled-label"
                                 id="demo-simple-select-filled"
                                 style={{width:'20rem'}}
-                                name="bankDetail"
+                                name="paymentDetail"
                                 onChange={ (e) => handleTextChange(e)}
-                                value={formData.bankDetail}
+                                value={formData.paymentDetail}
                                 InputProps={{
                                     classes:{
                                         input : classes.select
@@ -185,8 +194,11 @@ const  CreateParty = ({bank,loadBank}) => {
                                 }}
                                 >             
                                 {
-                                    bank.map((ebank) => {
-                                        return <MenuItem style={{fontSize: "2rem"}} value={`${ebank.bankNum} ${ebank.bankName} ${ebank.nameHolder}`}>{`${ebank.bankNum} ${ebank.bankName} ${ebank.nameHolder}`}</MenuItem>
+                                    bank.map((ebank,index) => {
+                                        return <MenuItem 
+                                                    key={index}
+                                                    style={{fontSize: "2rem"}} 
+                                                    value={`${ebank.bankNum} ${ebank.bankName} ${ebank.nameHolder}`}>{`${ebank.bankNum} ${ebank.bankName} ${ebank.nameHolder}`}</MenuItem>
                                     })
                                 }
                         </Select>
@@ -213,7 +225,7 @@ const  CreateParty = ({bank,loadBank}) => {
                              onChange={ (e) => handleImageChange(e)}
                              style={{marginLeft:'8rem'}}
                              />
-                        <Button type="submit" style={{fontSize:'2rem',margin:'3rem 23rem'}} variant="contained" color="primary">
+                        <Button type="submit" style={{fontSize:'2rem',margin:'3rem 23rem'}} variant="contained" color="primary"> 
                              สร้างปาตี้
                         </Button>
                     </form>
@@ -231,4 +243,4 @@ const mapStateToProps = (state) => ({
     bank : state.bank.Allbank
 })
 
-export default connect(mapStateToProps,{loadBank})(CreateParty)
+export default connect(mapStateToProps,{loadBank,CreatePartyy})(CreateParty)

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // MUI Stuff
-import axios from 'axios';
+
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';

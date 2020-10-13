@@ -55,7 +55,7 @@ const Navbar = ({isAuthenticated , logout, user}) => {
                         component={Link} to='/dashboard'>หาปาตี้</Button>
                         <Button 
                         className={classes.Button}
-                        component={Link} to='/createParty'>หาคนช่วยแชร์</Button>
+                        component={Link} to='/createParty'>สร้างปาตี้</Button>
                     </Box>
                     
         <Button className={classes.Button}  aria-controls="simple-menu" aria-haspopup="true" onClick={ (e) => handleClick(e) }><PersonIcon fontSize="large"/>{user && user.fname}</Button>

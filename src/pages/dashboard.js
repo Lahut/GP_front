@@ -40,7 +40,7 @@ const Dashboard = ({user}) => {
         },{
             name: 'Platforms/Software',
             img: 'https://i.redd.it/b3esnz5ra34y.jpg',
-            keyword: 'platforms/software'
+            keyword: 'platform-software'
 
         },{
             name: 'คอร์สเรียน',

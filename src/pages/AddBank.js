@@ -54,10 +54,7 @@ const AddBank = ({addBank}) => {
         DataForm.append('bankNum',formData.bankNum);
         DataForm.append('nameHolder',formData.bankHolder);
         DataForm.append('','');
-
         addBank({DataForm})
-
-
     }
 
 
