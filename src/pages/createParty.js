@@ -149,7 +149,7 @@ const  CreateParty = ({bank,loadBank,CreatePartyy}) => {
                                 <MenuItem style={{fontSize: "2rem"}} value={'cloth'}>เสื้อผ้า</MenuItem>
                                 <MenuItem style={{fontSize: "2rem"}} value={'food'}>อาหาร</MenuItem>
                                 <MenuItem style={{fontSize: "2rem"}} value={'travel'}>ท่องเที่ยว</MenuItem>
-                                <MenuItem style={{fontSize: "2rem"}} value={'platforms/software'}>แพลตฟอร์ม หรือ ซอฟแวร์</MenuItem>
+                                <MenuItem style={{fontSize: "2rem"}} value={'platform-software'}>แพลตฟอร์ม หรือ ซอฟแวร์</MenuItem>
                                 <MenuItem style={{fontSize: "2rem"}} value={'education'}>คอร์สเรียน</MenuItem>
                                 <MenuItem style={{fontSize: "2rem"}} value={'general'}>ของใช้ทั่วไป</MenuItem>
                                 <MenuItem style={{fontSize: "2rem"}} value={'etc'}>อื่นๆ</MenuItem>
