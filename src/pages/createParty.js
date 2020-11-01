@@ -22,6 +22,7 @@ import bankingReducer from '../redux/reducers/bankingReducer';
 const  CreateParty = ({bank,loadBank,CreatePartyy}) => {
 
 
+
     useEffect( () =>{
             loadBank()
         },[])
@@ -214,12 +215,10 @@ const  CreateParty = ({bank,loadBank,CreatePartyy}) => {
                             name="desc"
                             onChange={ (e) => handleTextChange(e)}
                             value={formData.desc}
-                            
-                            
                         />
                         <br/>
                         <br/>
-                        <h2 style={{fontSize:'1.5rem',display:'inline-block',paddingRight:'1rem'}}>เพิ่มรูปหน้าปกปาตี้</h2>
+                        <h2 style={{fontSize:'1.5rem',display:'inline-block',paddingRight:'1rem'}}>เพิ่มรูปหน้าปก</h2>
                         <input type="file" 
                             name="thumbnail"
                              onChange={ (e) => handleImageChange(e)}

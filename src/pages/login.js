@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 //Redux
 import { connect } from 'react-redux';
 import { login } from '../redux/actions/authActions';
-const Login = ({login, isAuthenticated}) => {
+const Login = ({login, isAuthenticated,loading}) => {
 
     const [userForm , setUserForm ] = useState({
         email:'',
@@ -55,6 +55,7 @@ const Login = ({login, isAuthenticated}) => {
         return <Redirect to='/dashboard'/>
     }
     return (
+        
         <Grid container className={classes.form}>
             <Grid item sm />
             <Grid item sm >
@@ -114,6 +115,7 @@ Login.propTypes = {
 
 const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated
+    
 })
 
 export default connect(mapStateToProps,{ login })(Login)

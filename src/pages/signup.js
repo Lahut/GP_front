@@ -49,8 +49,7 @@ const Signup = ({ setAlert, signUp, isAuthenticated }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-       
-
+        
         const newUser = {
             fname: userData.fname,
             lname: userData.lname,

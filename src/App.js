@@ -11,12 +11,13 @@ import  Kyc  from './pages/kyc';
 import AddBank from './pages/AddBank';
 import ShowBank from './pages/ShowBank';
 import profile from './pages/Profile';
+import PartyDetail from './pages/PartyDetail';
 import ShowParty from './pages/ShowParty';
-import jwtDecode from 'jwt-decode';
 import { setAuthToken } from './Utils/setAuthToken';
 import Alerted from './Components/Alerted';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import PrivateRoute from './Utils/PrivateRoute';
+
 //Redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -61,6 +62,7 @@ const  App = () => {
               <PrivateRoute exact path='/showBank' component={ShowBank}/>
               <PrivateRoute exact path='/profile' component={profile}/>
               <PrivateRoute exact path='/showParty/:category' component={ShowParty}/>
+              <PrivateRoute exact path='/showParty/party/:partyId' component={PartyDetail}/>
             </Switch>
           </div>
         </Router>
