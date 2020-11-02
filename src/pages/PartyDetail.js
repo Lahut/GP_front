@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -11,8 +11,12 @@ const PartyDetail = () => {
     const [paymentDetail , SetpaymentDetail] = useState({
         bankDetail: {},
         date:'',
-        time:''
+        time:'',
+        hostId:'',
+        price_: 0
     })
+    let history = useHistory();
+
     const [partyDetail,setPartyDetail] = useState({})
 
     let dateInMillis,date_,time_;
@@ -22,13 +26,12 @@ const PartyDetail = () => {
         console.log(partyId)
         axios.get(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/getPartyById/${partyId}`)
         .then((doc) => {
-            
             setPartyDetail(doc.data)
             dateInMillis = doc.data.createdAt._seconds * 1000
             date_  = new Date(dateInMillis).toDateString();
             time_ = new Date(dateInMillis).toLocaleTimeString();
 
-            SetpaymentDetail({...paymentDetail,bankDetail : doc.data.paymentDetail,date : date_,time : time_})
+            SetpaymentDetail({...paymentDetail,bankDetail : doc.data.paymentDetail,date : date_,time : time_, hostId : doc.data.host , price_ : doc.data.price})
             Setloading(false)
         })
         .catch((err) => {
@@ -53,6 +56,7 @@ const PartyDetail = () => {
                             <h2>{`จำนวนสมาชิก ${partyDetail.c_member}/${partyDetail.t_member}  `}<i class="fas fa-users"></i></h2>
                             <h2>{`หมวดหมู่ : ${partyDetail.category}`}</h2>
                             <h2>{`รายละเอียด : ${partyDetail.desc}`}</h2>
+                            <h2>{`ราคา : ${partyDetail.price} บาท/คน`}</h2>
                             <h2 style={{display:'inline'}}>{`วันที่สร้าง : ${paymentDetail.date}   เวลา : ${paymentDetail.time}`}</h2>
                             <hr style={{width:"80%",marginRight:"15rem"}}/>
                             <h1>{`ผู้สร้างปาตี้`}</h1>
@@ -64,7 +68,14 @@ const PartyDetail = () => {
                             <h1>สมาชิก</h1>
                             <h2 style={{margin:' 0 1rem 1rem'}} >{partyDetail.members ? `ยังไม่มีสมาชิก` : `มีละ map members มาโชว์`}</h2>
                         </div>
-                        <Button style={{fontSize:'2rem'}} variant="contained" color="primary">
+                        <Button 
+                            style={{fontSize:'2rem'}} 
+                            variant="contained" 
+                            color="primary"
+                            onClick ={ ()=> history.push({
+                                pathname : `/payment/party/${partyId}`,
+                                state : { paymentDetail : paymentDetail}
+                            })} >
                             เข้าร่วม
                         </Button>
                         

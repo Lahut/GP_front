@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setAlert } from './alertActions';
+import swal from 'sweetalert';
 
 export const addBank = ({DataForm}) => async dispatch =>{
     // for (var pair of DataForm.entries()) {
@@ -75,4 +76,30 @@ export const loadParty = ({category}) => async dispatch => {
             );
         }
     }
+}
+
+export const CreatePayment = ({DataForm}) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }
+
+    try{
+        const res = axios.post('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/createPayment',
+        DataForm,config);
+
+        if(res) {
+            swal("ส่งหลักฐานการชำระเงินเรียบร้อย!","คุณสามารถตรวจสอบสถานะการชำระเงินได้ที่หน้าโปรไฟล์","success");
+        }
+        
+    }catch(err) {
+        const errors = err.response.data.errors;
+        if(errors){
+            errors.forEach(error =>
+                 dispatch(setAlert(error,'error'))
+            );
+        }
+    }
+
 }

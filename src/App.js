@@ -13,6 +13,7 @@ import ShowBank from './pages/ShowBank';
 import profile from './pages/Profile';
 import PartyDetail from './pages/PartyDetail';
 import ShowParty from './pages/ShowParty';
+import Payment from './pages/Payment';
 import { setAuthToken } from './Utils/setAuthToken';
 import Alerted from './Components/Alerted';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -63,6 +64,7 @@ const  App = () => {
               <PrivateRoute exact path='/profile' component={profile}/>
               <PrivateRoute exact path='/showParty/:category' component={ShowParty}/>
               <PrivateRoute exact path='/showParty/party/:partyId' component={PartyDetail}/>
+              <PrivateRoute exact path='/payment/party/:partyId' component={Payment}/>
             </Switch>
           </div>
         </Router>
