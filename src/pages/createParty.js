@@ -27,6 +27,10 @@ const  CreateParty = ({bank,loadBank,CreatePartyy}) => {
             loadBank()
         },[])
 
+        
+    
+
+    
     const useStyles = makeStyles({
         form:{
             textAlign:"left",
@@ -79,6 +83,7 @@ const  CreateParty = ({bank,loadBank,CreatePartyy}) => {
         DataForm.append('file',formData.thumbnail);
         DataForm.append('','');
 
+        
         CreatePartyy({DataForm})
         
 

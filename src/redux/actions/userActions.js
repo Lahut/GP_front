@@ -78,7 +78,7 @@ export const loadParty = ({category}) => async dispatch => {
     }
 }
 
-export const CreatePayment = ({DataForm}) => async dispatch => {
+export const CreatePayment = ({FormData_}) => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'multipart/form-data'
@@ -86,11 +86,11 @@ export const CreatePayment = ({DataForm}) => async dispatch => {
     }
 
     try{
-        const res = axios.post('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/createPayment',
-        DataForm,config);
+        const res = await axios.post('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/createPayment',
+        FormData_,config);
 
         if(res) {
-            swal("ส่งหลักฐานการชำระเงินเรียบร้อย!","คุณสามารถตรวจสอบสถานะการชำระเงินได้ที่หน้าโปรไฟล์","success");
+            swal("ส่งหลักฐานการชำระเงินเรียบร้อย!","คุณสามารถตรวจสอบสถานะการชำระเงินได้ที่หน้าปาตี้ของฉัน","success");
         }
         
     }catch(err) {
