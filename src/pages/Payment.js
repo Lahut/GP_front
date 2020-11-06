@@ -18,8 +18,7 @@ const Payment = ({CreatePayment}) => {
 
 
 
-    const { hostId , bankDetail , price_} = location.state.paymentDetail;
-    //console.log(hostId,price_,bankDetail)
+    const { hostId , bankDetail , price_ , thumbnail} = location.state.paymentDetail;
 
 
     const [DataForm,SetDataform] = useState({
@@ -54,6 +53,7 @@ const Payment = ({CreatePayment}) => {
         FormData_.append("img_proof",DataForm.img_proof);
         FormData_.append("lname",DataForm.lname);
         FormData_.append("partyId",partyId);
+        FormData_.append("thumbnail",thumbnail);
         FormData_.append("","");
         CreatePayment({FormData_})
 

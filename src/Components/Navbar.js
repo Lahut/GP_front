@@ -66,6 +66,7 @@ const Navbar = ({isAuthenticated , logout, user}) => {
                         onClose={ handleClose }
                     >
                         <MenuItem style={{fontSize: "2rem"}} component={Link} to='/profile' onClick={ handleClose }>โปรไฟล์</MenuItem>
+                        <MenuItem style={{fontSize: "2rem"}} component={Link} to='/myparty' onClick={ handleClose }>ปาตี้ของฉัน</MenuItem>
                         <MenuItem style={{fontSize: "2rem"}} component={Link} to='/showBank' onClick={ handleClose }>สมุดบัญชี</MenuItem>
                         <MenuItem style={{fontSize: "2rem"}} component={Link} to='/addBank' onClick={ handleClose }>เพิ่มสมุดบัญชี</MenuItem>
                         <MenuItem style={{fontSize: "2rem"}} component={Link} to='/kyc' onClick={ handleClose }>ยืนยันตัวตน</MenuItem>

@@ -13,7 +13,8 @@ const PartyDetail = () => {
         date:'',
         time:'',
         hostId:'',
-        price_: 0
+        price_: 0,
+        thumbnail: ''
     })
     let history = useHistory();
 
@@ -31,7 +32,7 @@ const PartyDetail = () => {
             date_  = new Date(dateInMillis).toDateString();
             time_ = new Date(dateInMillis).toLocaleTimeString();
 
-            SetpaymentDetail({...paymentDetail,bankDetail : doc.data.paymentDetail,date : date_,time : time_, hostId : doc.data.host , price_ : doc.data.price})
+            SetpaymentDetail({...paymentDetail,bankDetail : doc.data.paymentDetail,date : date_,time : time_, hostId : doc.data.host , price_ : doc.data.price, thumbnail : doc.data.thumbnailUrl})
             Setloading(false)
         })
         .catch((err) => {

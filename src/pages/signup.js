@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 
-//Rrdux
+//Redux
 import { connect } from 'react-redux';
 import { setAlert } from '../redux/actions/alertActions';
 import { signUp } from '../redux/actions/authActions';

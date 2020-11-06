@@ -1,0 +1,34 @@
+.card{
+    width: 550px;
+    height: 250px;
+    border-radius: 40px;
+    box-shadow: 5px 5px 30px 7px rgba(0,0,0,0), -5px -5px 30px 7px rgba(0,0,0,0.22);
+    transition: 0.4s;
+    margin: 0 auto;
+  }
+  
+  .cardImage {
+    width: inherit;
+    height: inherit;
+    transition: 0.4s;
+    
+  }
+  
+  .cardImage img {
+     width: 40%;
+     height: 100%;
+     object-fit: cover;
+     border-top-left-radius: 40px;
+     border-bottom-left-radius: 40px;
+  }
+
+  .btnGroup Button{
+    margin: 5px;
+  }
+
+  .btnGroup {
+    margin-left: 30rem;
+    position: relative; bottom: 6rem;
+  }
+  
+  

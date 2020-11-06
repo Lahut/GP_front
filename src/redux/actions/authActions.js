@@ -33,7 +33,6 @@ export const login = ({email,password}) => async dispatch =>{
     })
     .catch((err) => {
         const errors = err.response.data.errors;
-        console.log(err.response.data.errors)
         if(errors){
             errors.forEach(error =>{
                  
