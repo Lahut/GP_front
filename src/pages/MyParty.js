@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import Spinner from '../layouts/Spinner';
+import InfoModal from '../Components/InfoModal';
 //MUI
 import Grid from '@material-ui/core/Grid';
 
@@ -13,6 +14,7 @@ import PropTypes from 'prop-types';
 const MyParty = () => {
 
     const [loading,Setloading] = useState(true)
+    const [showModal,SetshowModal] = useState(false)
     const [Allticket,SetAllticket] = useState({
         hostTicket_ : [],
         memberTicket_ : []
@@ -33,13 +35,14 @@ const MyParty = () => {
         fetchData();
 
     },[])
-
-    console.log(Allticket)
     if(loading) return <Spinner />
+    console.log(showModal)
     return (
-        
+        <>
+        {
+            showModal ? <InfoModal /> : null
+        }
         <Grid container spacing={3}>
-            
         <Grid item xs={12}>
             <h1>
                 คำขอร่วมปาตี้
@@ -55,7 +58,8 @@ const MyParty = () => {
                             payerId={doc.payerId}
                             partyImg={doc.thumbnail}
                             partyId={doc.partyId}
-                            proofImg={doc.img_proof}/>
+                            proofImg={doc.img_proof}
+                            onShow={ () => SetshowModal(true)}/>
             })
         }
         <Grid item xs={12}>
@@ -71,12 +75,18 @@ const MyParty = () => {
                             status={doc.status}
                             message={doc.message}
                             partyImg={doc.thumbnail}
-                            partyId={doc.partyId}/>
+                            partyId={doc.partyId}
+                            timeLeft={doc.timeLeft}
+                            hostImg={doc.hostImg}
+                            price={doc.price}
+                            payment={doc.paymentMethod}
+                            paymentId={doc.paymentId}/>
                             
             })
         }
         
         </Grid>
+        </>
         
     )
 }

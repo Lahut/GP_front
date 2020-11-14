@@ -4,22 +4,64 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import classes from './styles/Payment.module.css';
 import TextField from '@material-ui/core/TextField';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams,useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { CreatePayment } from '../redux/actions/userActions';
 
 
 const Payment = ({CreatePayment}) => {
+    const calculateTimeLeft = () => {
+        let history = useHistory();
+
+        // getTime() + (h*60*60*1000)
+        const { paymentDetail , price , time,paymentId   } = location.state;
+        const difference = time - +new Date();
+        if(difference < 0){
+            axios.post(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/${paymentId}`)
+            .then(() => history.push("/myparty"))
+            .catch((err) =>console.log(err) )
+        }
+        let timeLeft = {};
+    
+        if (difference > 0) {
+          timeLeft = {
+            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+            ชั่วโมง: Math.floor((difference / (1000 * 60 * 60)) % 24),
+            นาที: Math.floor((difference / 1000 / 60) % 60),
+            วินาที: Math.floor((difference / 1000) % 60),
+          };
+        }
+    
+        return timeLeft;
+      };
     const { partyId } = useParams();
     const location = useLocation();
     //console.log(payerId && payerId.userId)
 
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    const { paymentDetail , price , time   } = location.state;
+    
 
+      useEffect(() => {
+        setTimeout(() => {
+          setTimeLeft(calculateTimeLeft());
+        }, 1000);
+      });
 
+      const timerComponents = [];
 
-    const { hostId , bankDetail , price_ , thumbnail} = location.state.paymentDetail;
+        Object.keys(timeLeft).forEach((interval) => {
+            if (!timeLeft[interval]) {
+            return;
+            }
 
+            timerComponents.push(
+            <span>
+                {timeLeft[interval]} {interval}{" "}
+            </span>
+            );
+        });
 
     const [DataForm,SetDataform] = useState({
         fname: '',
@@ -47,15 +89,15 @@ const Payment = ({CreatePayment}) => {
         console.log(DataForm)
 
         const FormData_ = new FormData();
+        // FormData_.append("fname",DataForm.fname);
+        // FormData_.append("hostId",hostId)
+        // FormData_.append("img_proof",DataForm.img_proof);
+        // FormData_.append("lname",DataForm.lname);
+        // //FormData_.append("partyId",partyId);
+        // FormData_.append("thumbnail",thumbnail);
+        // FormData_.append("","");
 
-        FormData_.append("fname",DataForm.fname);
-        FormData_.append("hostId",hostId)
-        FormData_.append("img_proof",DataForm.img_proof);
-        FormData_.append("lname",DataForm.lname);
-        FormData_.append("partyId",partyId);
-        FormData_.append("thumbnail",thumbnail);
-        FormData_.append("","");
-        CreatePayment({FormData_})
+        CreatePayment({FormData_,partyId})
 
 
 
@@ -68,12 +110,14 @@ const Payment = ({CreatePayment}) => {
             <Grid item xs={12}>
                 <div className={classes.PaymentForm}>
                     <h1 style={{paddingTop:'1rem'}}>ชำระเงิน</h1>
+                    <h1>กรุณาชำระเงินภายใน</h1>
+                    <h1 style={{color:'red'}}>{timerComponents.length ? timerComponents : <span>Time's up!</span>}</h1>
                     <div className={classes.PaymentDetail}>
-                       <h2>โอนเงินเข้าบัญชี</h2>
-                        <h2>ธนาคาร : {bankDetail.bankName}</h2>
-                        <h2>เลขบัญชี : {bankDetail.bankNumber}</h2>
-                        <h2>{`ชื่อบัญชี : ${bankDetail.bankFname} ${bankDetail.bankLname}`}</h2>
-                        <h2>{`จำนวนเงิน `}<span style={{color:'red'}}>{price_}</span> บาท</h2> 
+                        <h2>โอนเงินเข้าบัญชี</h2>
+                        <h2>ธนาคาร : {paymentDetail.bankName}</h2>
+                        <h2>เลขบัญชี : {paymentDetail.bankNumber}</h2>
+                        <h2>{`ชื่อบัญชี : ${paymentDetail.bankFname} ${paymentDetail.bankLname}`}</h2>
+                        <h2>{`จำนวนเงิน `}<span style={{color:'red'}}>{price}</span> บาท</h2> 
                     </div>
                     
                     <h1 style={{textAlign:'left',marginLeft:'5rem'}}>อัปโหลดหลักฐานการชำระเงิน</h1>

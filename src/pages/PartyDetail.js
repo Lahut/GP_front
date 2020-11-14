@@ -5,7 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import classes from './styles/PartyDetail.module.css';
 import Spinner from '../layouts/Spinner';
-const PartyDetail = () => {
+import swal from 'sweetalert';
+import { connect } from 'react-redux';
+import { CreatePayment } from '../redux/actions/userActions';
+const PartyDetail = ({CreatePayment}) => {
     const { partyId } = useParams();
     const [loading,Setloading] = useState(true)
     const [paymentDetail , SetpaymentDetail] = useState({
@@ -20,14 +23,13 @@ const PartyDetail = () => {
 
     const [partyDetail,setPartyDetail] = useState({})
 
-    let dateInMillis,date_,time_;
+    let dateInMillis,date_,time_,registed=0;
 
-    
-    useEffect( () => {
-        console.log(partyId)
+    const updatePartyDetail = () => {
         axios.get(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/getPartyById/${partyId}`)
         .then((doc) => {
             setPartyDetail(doc.data)
+            //console.log(doc.data)
             dateInMillis = doc.data.createdAt._seconds * 1000
             date_  = new Date(dateInMillis).toDateString();
             time_ = new Date(dateInMillis).toLocaleTimeString();
@@ -38,12 +40,26 @@ const PartyDetail = () => {
         .catch((err) => {
             console.log(err)
         })
+    }
+    
+    useEffect( () => {
+        updatePartyDetail();
     },[])
+
+
+    const onClickEnter = async (e) => {
+
+        e.preventDefault();
+        //FormData_.append("partyId",partyId);
+        
+       await CreatePayment({partyId})
+        updatePartyDetail();
+
+    }
     
 
     
     if(loading) return <Spinner />;
-    
     return (
             
             <Grid container spacing={3}>
@@ -67,24 +83,31 @@ const PartyDetail = () => {
                             <h2 style={{margin:'-4rem 0 1rem 7rem'}}>{`${paymentDetail.bankDetail.bankFname} ${paymentDetail.bankDetail.bankLname} ` }<i class="fas fa-crown"></i></h2>
                             <br/>
                             <h1>สมาชิก</h1>
-                            <h2 style={{margin:' 0 1rem 1rem'}} >{partyDetail.members ? `ยังไม่มีสมาชิก` : `มีละ map members มาโชว์`}</h2>
+                            {partyDetail.members.lenght === 0 ? <h2>ยังไม่มีสมาชิก</h2> : partyDetail.members.map((doc,index) => {
+                                return <div key={index} className={classes.dotM}><img src={doc.payerImg} /></div>
+                            })}
                         </div>
+
                         <Button 
                             style={{fontSize:'2rem'}} 
                             variant="contained" 
                             color="primary"
-                            onClick ={ ()=> history.push({
-                                pathname : `/payment/party/${partyId}`,
-                                state : { paymentDetail : paymentDetail}
-                            })} >
+                            // onClick ={ ()=> history.push({
+                            //     pathname : `/payment/party/${partyId}`,
+                            //     state : { paymentDetail : paymentDetail}
+                            // })} 
+                            onClick = { (e) => onClickEnter(e)}
+                            >
                             เข้าร่วม
                         </Button>
                         
                     </div>
+                    
                 </Grid>
             </Grid>
         
     )
 }
 
-export default PartyDetail
+
+export default connect(null,{CreatePayment})(PartyDetail)

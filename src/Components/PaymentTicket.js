@@ -1,16 +1,36 @@
-import React from 'react'
+import React,{ useState } from 'react'
 import classes from '../pages/styles/PaymentTicket.module.css'
 import { useHistory } from 'react-router-dom';
 //MUI
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import { Info } from '@material-ui/icons';
+import Backdrop from '@material-ui/core/Backdrop';
+import { makeStyles } from '@material-ui/core/styles';
 
 
-const PaymentTicket = ({fname,lname,payerImg,payerId,partyImg,partyId,proofImg}) => {
+const PaymentTicket = ({fname,lname,payerImg,payerId,partyImg,partyId,proofImg,onShow,hostImg_}) => {
 
     let history = useHistory();
+
+    const [open,Setopen] = useState(false)
+
+    const useStyles = makeStyles((theme) => ({
+        backdrop: {
+          zIndex: theme.zIndex.drawer + 1,
+          color: '#fff',
+        },
+      }));
+
+      const classesM = useStyles();
+
+
+
     return (
         <Grid   item xs={12} sm={6}>
+            <Backdrop className={classesM.backdrop} open={open} onClick={ () => Setopen(!open)}>
+                <h1>Backdropไง</h1>
+            </Backdrop>
             <div className={classes.card}>
                 <div className={classes.cardImage}>
                     <img style={{cursor:'pointer'}} src={partyImg} onClick={() => history.push(`/showParty/party/${partyId}`)} />
@@ -24,7 +44,7 @@ const PaymentTicket = ({fname,lname,payerImg,payerId,partyImg,partyId,proofImg})
                     <img src={payerImg}/>
                 </div>
                 <div className={classes.btnGroup}>
-                    <Button  style={{margin: '5px',fontSize:'1.5rem'}} variant="outlined" color="primary">
+                    <Button  onClick={() => Setopen(!open)} style={{margin: '5px',fontSize:'1.5rem'}} variant="outlined" color="primary">
                         อนุมัติ
                     </Button>
                     <Button style={{margin: '5px',fontSize:'1.5rem'}} variant="outlined" color="secondary">

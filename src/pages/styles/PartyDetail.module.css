@@ -19,6 +19,7 @@
 }
 
 .dot {
+    
     height: 40px;
     width: 40px;
     background-color: #bbb;
@@ -29,12 +30,37 @@
   }
 
   .dot img {
-    width: 100%;
     border-radius: 50%;
     object-fit: cover;
-    display: inline;
+    width: 100%;
+    
   }
 
   .dot:hover {
     transform: scale(0.8, 0.8);
   }
+
+.dotM {
+  height: 40px;
+  width: 40px;
+  background-color: #bbb;
+  border-radius: 50%;
+  margin: 5px 10px 10px 10px;
+  cursor: pointer;
+  transition: 0.4s;
+  display: inline-flex;
+  
+  
+  
+
+}
+.dotM img {
+  width: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  
+}
+
+.dotM:hover {
+  transform: scale(0.8, 0.8);
+}

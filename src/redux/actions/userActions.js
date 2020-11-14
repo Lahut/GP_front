@@ -78,7 +78,7 @@ export const loadParty = ({category}) => async dispatch => {
     }
 }
 
-export const CreatePayment = ({FormData_}) => async dispatch => {
+export const CreatePayment = ({partyId}) => async dispatch => {
     const config = {
         headers: {
             'Content-Type': 'multipart/form-data'
@@ -86,15 +86,19 @@ export const CreatePayment = ({FormData_}) => async dispatch => {
     }
 
     try{
-        const res = await axios.post('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/createPayment',
+        const FormData_ = new FormData();
+        const res = await axios.post(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/createPayment/${partyId}`,
         FormData_,config);
 
-        if(res) {
-            swal("ส่งหลักฐานการชำระเงินเรียบร้อย!","คุณสามารถตรวจสอบสถานะการชำระเงินได้ที่หน้าปาตี้ของฉัน","success");
+        if(res.data.message === "เข้าร่วมปาตี้สำเร็จ") {
+            swal(res.data.message,"คุณสามารถชำระเงินได้ที่หน้าโปรไฟล์","success");
+        }else{
+            swal(res.data.message,"","error");
         }
         
     }catch(err) {
         const errors = err.response.data.errors;
+        console.log(err)
         if(errors){
             errors.forEach(error =>
                  dispatch(setAlert(error,'error'))
