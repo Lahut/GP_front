@@ -13,35 +13,48 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 const MyParty = () => {
 
-    const [loading,Setloading] = useState(true)
-    const [showModal,SetshowModal] = useState(false)
+    //const [loading,Setloading] = useState(true)
     const [Allticket,SetAllticket] = useState({
         hostTicket_ : [],
-        memberTicket_ : []
+        memberTicket_ : [],
+        loading : true
     });
 
-    useEffect ( () => {
-
-        const fetchData = async () => {
-            const res = await axios.get('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/gethostTicketNmemberTicket')
-            if(res){
-                SetAllticket({
-                    hostTicket_ : res.data.hostTicket,
-                    memberTicket_ : res.data.MemberTicket
-                })
-                Setloading(false)
-            }
+    const fetchData = async () => {
+        const res = await axios.get('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/gethostTicketNmemberTicket')
+        let Mtic = res.data.MemberTicket;
+        let Htic = res.data.hostTicket;
+        if(res){
+            
+            Mtic.forEach((doc,index) =>{
+                if((doc.timeLeft - +new Date()) < 0 && (doc.status === 'waiting')){
+                    console.log('hit')
+                    axios.post(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/deletePayment/${doc.paymentId}`)
+                    .then(() => {
+                        console.log('success to delete')
+                        Mtic.splice(index,1);
+                    })
+                    .catch((err) => console.log(err))
+                }
+            });
         }
+         SetAllticket({
+                hostTicket_ : Htic,
+                memberTicket_ : Mtic,
+                loading: false
+            })
+    }
+    useEffect ( () => {
         fetchData();
-
     },[])
-    if(loading) return <Spinner />
-    console.log(showModal)
+
+    
+    if(Allticket.loading) return <Spinner />
+    
     return (
         <>
-        {
-            showModal ? <InfoModal /> : null
-        }
+        
+        
         <Grid container spacing={3}>
         <Grid item xs={12}>
             <h1>
@@ -59,7 +72,10 @@ const MyParty = () => {
                             partyImg={doc.thumbnail}
                             partyId={doc.partyId}
                             proofImg={doc.img_proof}
-                            onShow={ () => SetshowModal(true)}/>
+                            status={doc.status} 
+                            newFetch={ () => fetchData()}
+                            paymentId={doc.paymentId}/>
+                            
             })
         }
         <Grid item xs={12}>
@@ -73,14 +89,16 @@ const MyParty = () => {
                             key={index}
                             hostId={doc.hostId}
                             status={doc.status}
-                            message={doc.message}
                             partyImg={doc.thumbnail}
                             partyId={doc.partyId}
                             timeLeft={doc.timeLeft}
                             hostImg={doc.hostImg}
                             price={doc.price}
                             payment={doc.paymentMethod}
-                            paymentId={doc.paymentId}/>
+                            paymentId={doc.paymentId}
+                            message={doc.message}
+                            tel={doc.tel}
+                            lineId={doc.line_id}/>
                             
             })
         }

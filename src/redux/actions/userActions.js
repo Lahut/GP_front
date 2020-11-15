@@ -108,4 +108,56 @@ export const CreatePayment = ({partyId}) => async dispatch => {
 
 }
 
+export const UploadImgProof =  ({FormData_,paymentId}) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }
+
+    try{
+        const res = await axios.post(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/uploadImgProof/${paymentId}`,
+        FormData_,config);
+
+        if(res.data.message === "ส่งหลักฐานชำระเงินเรียบร้อย") {
+            swal(res.data.message,"รอหัวหน้าปาตี้ตรวจสอบสามารถดูสถานะการชำระเงินได้ที่หน้าปาตี้ของฉัน","success");
+        }else{
+            swal(res.data.message,"","error");
+        }
+        
+    }catch(err) {
+        const errors = err.response.data.errors;
+        console.log(err)
+        if(errors){
+            errors.forEach(error =>
+                 dispatch(setAlert(error,'error'))
+            );
+        }
+    }
+
+
+}
+
+export const DecryptMessage = ({iv,content}) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    
+
+    try{
+
+        const body = JSON.stringify({iv,content});
+        const res = await axios.post('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/decrptMessage',body,config);
+        if(res) {
+            return res.data.message ;
+        }
+
+    }catch(err)  {
+        console.log(err)
+    }
+}
+
 

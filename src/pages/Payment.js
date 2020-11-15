@@ -7,21 +7,22 @@ import TextField from '@material-ui/core/TextField';
 import { useLocation, useParams,useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { CreatePayment } from '../redux/actions/userActions';
+import { UploadImgProof } from '../redux/actions/userActions';
 
 
-const Payment = ({CreatePayment}) => {
+const Payment = ({UploadImgProof}) => {
+    let history = useHistory();
     const calculateTimeLeft = () => {
-        let history = useHistory();
+        
 
         // getTime() + (h*60*60*1000)
         const { paymentDetail , price , time,paymentId   } = location.state;
         const difference = time - +new Date();
-        if(difference < 0){
-            axios.post(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/${paymentId}`)
-            .then(() => history.push("/myparty"))
-            .catch((err) =>console.log(err) )
-        }
+        // if(difference < 0){
+        //     axios.post(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/${paymentId}`)
+        //     .then(() => console.log('success'))
+        //     .catch((err) =>console.log(err) )
+        // }
         let timeLeft = {};
     
         if (difference > 0) {
@@ -40,8 +41,8 @@ const Payment = ({CreatePayment}) => {
     //console.log(payerId && payerId.userId)
 
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-    const { paymentDetail , price , time   } = location.state;
-    
+    const { paymentDetail , price , time, paymentId   } = location.state;
+
 
       useEffect(() => {
         setTimeout(() => {
@@ -82,31 +83,36 @@ const Payment = ({CreatePayment}) => {
         SetDataform({...DataForm,[e.target.name]: image});
     }
     
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         
         e.preventDefault();
 
         console.log(DataForm)
 
         const FormData_ = new FormData();
-        // FormData_.append("fname",DataForm.fname);
-        // FormData_.append("hostId",hostId)
-        // FormData_.append("img_proof",DataForm.img_proof);
+         FormData_.append("fname",DataForm.fname);
+         FormData_.append("lname",DataForm.lname);
+         FormData_.append("img_proof",DataForm.img_proof);
         // FormData_.append("lname",DataForm.lname);
         // //FormData_.append("partyId",partyId);
         // FormData_.append("thumbnail",thumbnail);
-        // FormData_.append("","");
+         FormData_.append("","");
 
-        CreatePayment({FormData_,partyId})
+        await UploadImgProof({FormData_,paymentId})
+
+        history.push("/myparty");
 
 
 
-        //CreatePayment({DataForm})
+        //UploadImgProof({DataForm})
 
     }
 
     return (
         <Grid container spacing={3}>
+            {
+                !timerComponents.length ? history.push("/myparty") : null
+            }
             <Grid item xs={12}>
                 <div className={classes.PaymentForm}>
                     <h1 style={{paddingTop:'1rem'}}>ชำระเงิน</h1>
@@ -160,4 +166,4 @@ const Payment = ({CreatePayment}) => {
 }
 
 
-export default connect(null,{CreatePayment})(Payment)
+export default connect(null,{UploadImgProof})(Payment)
