@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { setAlert } from './alertActions';
 import swal from 'sweetalert';
-
+import { useHistory  } from 'react-router-dom';
 export const addBank = ({DataForm}) => async dispatch =>{
     // for (var pair of DataForm.entries()) {
     //     console.log(pair[0]+ ', ' + pair[1]); 
@@ -27,6 +27,7 @@ export const addBank = ({DataForm}) => async dispatch =>{
 }
 
 export const CreatePartyy = ({DataForm}) => async dispatch => {
+    
     const config = {
         headers: {
             'Content-Type': 'multipart/form-data'
@@ -34,12 +35,14 @@ export const CreatePartyy = ({DataForm}) => async dispatch => {
     }
     try{
 
-        const res = axios.post(
+        const res = await axios.post(
         'http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/createhome',
         DataForm,config);
 
         if(res){
             dispatch(setAlert("สร้างปาตี้เรียบร้อย!","success"));
+            return res.data.message
+            
         }
 
 

@@ -56,7 +56,7 @@ const Payment = ({UploadImgProof}) => {
             if (!timeLeft[interval]) {
             return;
             }
-
+            
             timerComponents.push(
             <span>
                 {timeLeft[interval]} {interval}{" "}

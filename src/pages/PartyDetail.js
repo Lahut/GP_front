@@ -57,7 +57,7 @@ const PartyDetail = ({CreatePayment,user_}) => {
         if(partyDetail.members.some(i => i.payerId.includes(userna))){
             swal({
                 title: "คุณได้เข้าร่วมปาตี้นี้แล้ว",
-                text: "ดูเหมือนคุณยังไม่ได้ชำระเงิน กรุณาไปที่หน้าปาตี้ของฉันเพื่อชำระเงิน",
+                text: "ดูเหมือนคุณได้อยู่ในปาตี้นี้อยู่แล้ว ต้องการไปหน้าปาตี้ของฉันเพื่อดูรายละเอียดหรือไม่",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,

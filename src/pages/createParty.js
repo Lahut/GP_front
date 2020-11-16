@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import { useHistory  } from 'react-router-dom';
 //MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -20,9 +20,7 @@ import bankingReducer from '../redux/reducers/bankingReducer';
 
 
 const  CreateParty = ({bank,loadBank,CreatePartyy}) => {
-
-
-
+    let history = useHistory();
     useEffect( () =>{
             loadBank()
         },[])
@@ -67,7 +65,7 @@ const  CreateParty = ({bank,loadBank,CreatePartyy}) => {
         console.log(e.target.value)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit =  async (e) => {
 
         e.preventDefault();
 
@@ -84,7 +82,10 @@ const  CreateParty = ({bank,loadBank,CreatePartyy}) => {
         DataForm.append('','');
 
         
-        CreatePartyy({DataForm})
+        const res =  await CreatePartyy({DataForm})
+        history.push(`/showParty/party/${res}`)
+
+        
         
 
 

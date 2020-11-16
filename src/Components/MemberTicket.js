@@ -85,6 +85,15 @@ const MemberTicket = ({hostId,status,
 
     const classesM = useStyles();
 
+    const deletePaymentThenReAssign = () => {
+        axios.delete(`http://localhost:5000/graduation-project-cs-32/asia-southeast2/api//justdelPayment/${paymentId}`)
+        .then(() => {
+            history.push(`/showParty/party/${partyId}`)
+        }).catch((err) =>{
+            console.log(err)
+        })
+    }
+
     
 
 
@@ -122,7 +131,12 @@ const MemberTicket = ({hostId,status,
                         status === 'accept' ? <Button variant="contained" color='primary' 
                                                      onClick={ () => Setopen(!open)}
                                                      style={{fontSize:'2rem',position:'relative',left:'32rem',bottom:'22rem'}}>ตรวจสอบ</Button> : null
-                    }
+                }
+                 {
+                        status === 'reject' ? <Button variant="contained" color='primary' 
+                                                     onClick={ () => deletePaymentThenReAssign()}
+                                                     style={{fontSize:'2rem',position:'relative',left:'30rem',bottom:'22rem'}}>เข้าร่วมปาตี้อีกครั้ง</Button> : null
+                }
             </div>
         </Grid>
     )

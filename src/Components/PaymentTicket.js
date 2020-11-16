@@ -14,7 +14,7 @@ import swal from 'sweetalert';
 const PaymentTicket = ({fname,lname,payerImg,
                         payerId,partyImg,partyId,
                         proofImg,onShow,hostImg_,
-                        status,newFetch,paymentId}) => {
+                        status,paymentId},props) => {
 
     let history = useHistory();
 
@@ -136,15 +136,37 @@ const PaymentTicket = ({fname,lname,payerImg,
                         'Content-Type': 'multipart/form-data'
                       }
                   })
-                  .then(() => {
-                      Setopen(!open)
-                  }).catch((err) => {
+                  .then(() => 
+                      //props.newFetch()
+                      window.location.reload()
+                  ).catch((err) => {
                       console.log(err)
                   })
               });
             }
           });
       }
+
+      const handleToReject = (e) => {
+        e.preventDefault();
+        swal({
+            title: "ยืนยันที่จะปฏิเสธคำขอหรือไม่",
+            text: "หากปฏิเสธแล้วจะไม่สามารถย้อนกลับไปแก้ไข้ได้",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                axios.post(`http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/deletePayment/${paymentId}`)
+                .then(() => {
+                    console.log('เย้')
+                })
+            } else {
+                //updatePartyDetail();
+            }
+          });
+    }
 
       //onClick={ () => Setopen(!open)}
     return (
