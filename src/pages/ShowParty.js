@@ -18,7 +18,7 @@ const ShowParty = (props) => {
 
 
     useEffect(  () => {
-        axios.get(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/getparty/${category}`)
+        axios.get(`http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/getparty/${category}`)
         .then((res) => {
             if(res){
                 Setloading(false)

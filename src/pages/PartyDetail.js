@@ -8,7 +8,9 @@ import Spinner from '../layouts/Spinner';
 import swal from 'sweetalert';
 import { connect } from 'react-redux';
 import { CreatePayment } from '../redux/actions/userActions';
-const PartyDetail = ({CreatePayment}) => {
+import PropTypes from 'prop-types';
+import Party from '../Components/Party';
+const PartyDetail = ({CreatePayment,user_}) => {
     const { partyId } = useParams();
     const [loading,Setloading] = useState(true)
     const [paymentDetail , SetpaymentDetail] = useState({
@@ -20,13 +22,14 @@ const PartyDetail = ({CreatePayment}) => {
         thumbnail: ''
     })
     let history = useHistory();
+    let userja = user_ && user_.userId
 
     const [partyDetail,setPartyDetail] = useState({})
 
     let dateInMillis,date_,time_,registed=0;
 
     const updatePartyDetail = () => {
-        axios.get(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/getPartyById/${partyId}`)
+        axios.get(`http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/getPartyById/${partyId}`)
         .then((doc) => {
             setPartyDetail(doc.data)
             //console.log(doc.data)
@@ -50,10 +53,29 @@ const PartyDetail = ({CreatePayment}) => {
     const onClickEnter = async (e) => {
 
         e.preventDefault();
+        let userna = user_ && user_.userId;
+        if(partyDetail.members.some(i => i.payerId.includes(userna))){
+            swal({
+                title: "คุณได้เข้าร่วมปาตี้นี้แล้ว",
+                text: "ดูเหมือนคุณยังไม่ได้ชำระเงิน กรุณาไปที่หน้าปาตี้ของฉันเพื่อชำระเงิน",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then((willDelete) => {
+                if (willDelete) {
+                    history.push('/myparty')
+                } else {
+                    updatePartyDetail();
+                }
+              });
+        }else{
+           await CreatePayment({partyId})
+           updatePartyDetail(); 
+        }
         //FormData_.append("partyId",partyId);
         
-       await CreatePayment({partyId})
-        updatePartyDetail();
+       
 
     }
     
@@ -84,11 +106,12 @@ const PartyDetail = ({CreatePayment}) => {
                             <br/>
                             <h1>สมาชิก</h1>
                             {partyDetail.members.lenght === 0 ? <h2>ยังไม่มีสมาชิก</h2> : partyDetail.members.map((doc,index) => {
-                                return <div key={index} className={classes.dotM}><img src={doc.payerImg} /></div>
+                                return <div key={index} onClick={ () => history.push(`/profile/${doc.payerId}`)} className={classes.dotM}><img src={doc.payerImg} /></div>
                             })}
                         </div>
-
-                        <Button 
+                        {console.log(partyDetail.host,userja)}
+                        {
+                            partyDetail.host !==  userja ? <Button 
                             style={{fontSize:'2rem'}} 
                             variant="contained" 
                             color="primary"
@@ -99,7 +122,9 @@ const PartyDetail = ({CreatePayment}) => {
                             onClick = { (e) => onClickEnter(e)}
                             >
                             เข้าร่วม
-                        </Button>
+                        </Button> :  null
+                        }
+                       
                         
                     </div>
                     
@@ -109,5 +134,13 @@ const PartyDetail = ({CreatePayment}) => {
     )
 }
 
+PartyDetail.propTypes ={
+    user_ : PropTypes.object.isRequired
+}
 
-export default connect(null,{CreatePayment})(PartyDetail)
+const mapStateToProps = (state) => ({
+    user_ : state.auth.user
+})
+
+
+export default connect(mapStateToProps,{CreatePayment})(PartyDetail)

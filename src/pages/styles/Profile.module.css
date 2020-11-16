@@ -1,0 +1,19 @@
+.dot {
+    height: 30rem;
+    width: 30rem;
+    background-color:#fff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.4s;
+    margin: 5rem auto;
+    
+  }
+  
+  .dot img {
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .dot:hover {
+    transform: scale(0.8, 0.8);
+  }

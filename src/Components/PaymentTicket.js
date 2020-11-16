@@ -110,7 +110,7 @@ const PaymentTicket = ({fname,lname,payerImg,
       const handleToSendMessage = (e) => {
 
         e.preventDefault();
-        console.log(DataForm)
+        
         const DataForm_ = new FormData();
                  DataForm_.append("message",DataForm.message);
                  DataForm_.append("tel",DataForm.tel);
@@ -129,8 +129,9 @@ const PaymentTicket = ({fname,lname,payerImg,
                 icon: "success",
                 
               }).then(() => {
-                  console.log(paymentId)
-                  axios.post(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/sendMessageToMember/${paymentId}`,DataForm_,{
+                  
+                
+                  axios.post(`http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/sendMessageToMember/${paymentId}`,DataForm_,{
                       headers: {
                         'Content-Type': 'multipart/form-data'
                       }

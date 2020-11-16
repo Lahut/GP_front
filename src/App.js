@@ -63,6 +63,7 @@ const  App = () => {
               <PrivateRoute exact path='/addBank' component={AddBank}/>
               <PrivateRoute exact path='/showBank' component={ShowBank}/>
               <PrivateRoute exact path='/profile' component={profile}/>
+              <PrivateRoute exact path='/profile/:userId' component={profile}/>
               <PrivateRoute exact path='/myparty' component={MyParty}/>
               <PrivateRoute exact path='/showParty/:category' component={ShowParty}/>
               <PrivateRoute exact path='/showParty/party/:partyId' component={PartyDetail}/>

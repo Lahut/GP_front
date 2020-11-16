@@ -8,7 +8,7 @@ import {
 export const loadBank = () => async dispatch => {
     try{
 
-        const res = await axios.get('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/getBankByid')
+        const res = await axios.get('http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/getBankByid')
 
         if(res){
             dispatch({

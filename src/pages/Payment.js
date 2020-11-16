@@ -19,7 +19,7 @@ const Payment = ({UploadImgProof}) => {
         const { paymentDetail , price , time,paymentId   } = location.state;
         const difference = time - +new Date();
         // if(difference < 0){
-        //     axios.post(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/${paymentId}`)
+        //     axios.post(`http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/${paymentId}`)
         //     .then(() => console.log('success'))
         //     .catch((err) =>console.log(err) )
         // }

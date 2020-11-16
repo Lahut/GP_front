@@ -22,7 +22,7 @@ export const login = ({email,password}) => async dispatch =>{
     }
 
     const body = JSON.stringify({email,password});
-    axios.post('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/login',body,config)
+    axios.post('http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/login',body,config)
     .then( (res) => {
         dispatch({
             type: LOGIN_SUCCESS,
@@ -57,7 +57,7 @@ export const signUp = ({fname,lname,email,password,password2}) => async dispatch
     }
 
     const body = JSON.stringify({fname,lname,email,password,password2});
-    axios.post('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/signup',body,config)
+    axios.post('http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/signup',body,config)
     .then( (res) => {
         dispatch({
             type: REGISTER_SUCCESS,
@@ -87,7 +87,7 @@ export const loadUser = () => async dispatch => {
     }
 
     try{
-        const res = await axios.get('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/user');
+        const res = await axios.get('http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/user');
 
         dispatch({
             type: USER_LOADED,

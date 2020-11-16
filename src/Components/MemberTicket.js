@@ -16,7 +16,7 @@ const MemberTicket = ({hostId,status,
                        paymentId,message,DecryptMessage,
                        lineId,tel}) => {
 
-    console.log(hostImg)
+    
     let history = useHistory();
     let color = "";
     const [open,Setopen] = useState(false)
@@ -25,22 +25,22 @@ const MemberTicket = ({hostId,status,
 
     useEffect(() => {
         if(message){
-            console.log('yeah')
+            
            const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
             const {iv,content}  = message;
-            console.log(iv,content)
+            
             const body = JSON.stringify({iv,content});
-            axios.post('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/decrptMessage',body,{
+            axios.post('http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/decrptMessage',body,{
                 headers : {
                     'Content-Type': 'application/json'
                 }
             })
             .then((doc) => {
-                //console.log(doc.data.message)
+                
                 SetText(doc.data.message)
             }).catch((err) => {
                 console.log(err);

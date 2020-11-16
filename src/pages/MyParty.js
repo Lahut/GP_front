@@ -21,28 +21,32 @@ const MyParty = () => {
     });
 
     const fetchData = async () => {
-        const res = await axios.get('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/gethostTicketNmemberTicket')
+        const res = await axios.get('http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/gethostTicketNmemberTicket')
         let Mtic = res.data.MemberTicket;
         let Htic = res.data.hostTicket;
+        let New_Mtic = [];
+        //let = New_Htic = [];
         if(res){
-            
             Mtic.forEach((doc,index) =>{
                 if((doc.timeLeft - +new Date()) < 0 && (doc.status === 'waiting')){
-                    console.log('hit')
-                    axios.post(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/deletePayment/${doc.paymentId}`)
+                    
+                    axios.post(`http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/deletePayment/${doc.paymentId}`)
                     .then(() => {
                         console.log('success to delete')
-                        Mtic.splice(index,1);
+                        //Mtic.splice(index,1);
                     })
                     .catch((err) => console.log(err))
+                }else{
+                    New_Mtic.push(doc)
                 }
             });
-        }
-         SetAllticket({
+            SetAllticket({
                 hostTicket_ : Htic,
-                memberTicket_ : Mtic,
+                memberTicket_ : New_Mtic,
                 loading: false
             })
+        }
+         
     }
     useEffect ( () => {
         fetchData();

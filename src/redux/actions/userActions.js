@@ -12,7 +12,7 @@ export const addBank = ({DataForm}) => async dispatch =>{
         }
     }
     axios.post(
-        'https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/addBank',DataForm,config)
+        'http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/addBank',DataForm,config)
         .then( () => {
             dispatch(setAlert("ส่งข้อมูลบัญชีธนาคารเรียบร้อยแล้วรอทำการยืนยัน2-3วัน","success"))
         })
@@ -35,7 +35,7 @@ export const CreatePartyy = ({DataForm}) => async dispatch => {
     try{
 
         const res = axios.post(
-        'https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/createhome',
+        'http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/createhome',
         DataForm,config);
 
         if(res){
@@ -60,7 +60,7 @@ export const loadParty = ({category}) => async dispatch => {
 
     try{
 
-        const res = await axios.get(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/getparty/${category}`);
+        const res = await axios.get(`http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/getparty/${category}`);
 
         if(res){
             return res.data();
@@ -87,7 +87,7 @@ export const CreatePayment = ({partyId}) => async dispatch => {
 
     try{
         const FormData_ = new FormData();
-        const res = await axios.post(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/createPayment/${partyId}`,
+        const res = await axios.post(`http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/createPayment/${partyId}`,
         FormData_,config);
 
         if(res.data.message === "เข้าร่วมปาตี้สำเร็จ") {
@@ -116,7 +116,7 @@ export const UploadImgProof =  ({FormData_,paymentId}) => async dispatch => {
     }
 
     try{
-        const res = await axios.post(`https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/uploadImgProof/${paymentId}`,
+        const res = await axios.post(`http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/uploadImgProof/${paymentId}`,
         FormData_,config);
 
         if(res.data.message === "ส่งหลักฐานชำระเงินเรียบร้อย") {
@@ -150,7 +150,7 @@ export const DecryptMessage = ({iv,content}) => async dispatch => {
     try{
 
         const body = JSON.stringify({iv,content});
-        const res = await axios.post('https://asia-southeast2-graduation-project-cs-32.cloudfunctions.net/api/decrptMessage',body,config);
+        const res = await axios.post('http://localhost:5000/graduation-project-cs-32/asia-southeast2/api/decrptMessage',body,config);
         if(res) {
             return res.data.message ;
         }
