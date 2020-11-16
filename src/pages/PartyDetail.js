@@ -100,7 +100,7 @@ const PartyDetail = ({CreatePayment,user_}) => {
                             <hr style={{width:"80%",marginRight:"15rem"}}/>
                             <h1>{`ผู้สร้างปาตี้`}</h1>
                             <div  className={classes.dot}>
-                                <img src={partyDetail.host_img} />
+                                <img onClick={() => history.push(`/profile/${partyDetail.host}`)} src={partyDetail.host_img} />
                             </div>
                             <h2 style={{margin:'-4rem 0 1rem 7rem'}}>{`${paymentDetail.bankDetail.bankFname} ${paymentDetail.bankDetail.bankLname} ` }<i class="fas fa-crown"></i></h2>
                             <br/>

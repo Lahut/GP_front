@@ -51,6 +51,10 @@ const Profile = ({user_}) => {
             status = 'การยืนยันตัวตนไม่สำเร็จ'
             color_= '#d92b09'
         }
+        if(userObject.kycStatus === 'approve'){
+            status = 'ยืนยันตัวตนแล้ว'
+            color_= '#37bd02'
+        }
     }
     
     
