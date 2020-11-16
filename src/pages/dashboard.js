@@ -27,28 +27,28 @@ const Dashboard = ({user}) => {
     const Categorys = [
         {
             name: 'เสื้อผ้า',
-            img: 'https://i.redd.it/b3esnz5ra34y.jpg',
+            img: 'https://i.ibb.co/7pxNWYS/colth.jpg',
             keyword: 'cloth'
         },{
             name: 'อาหาร',
-            img: 'https://i.redd.it/b3esnz5ra34y.jpg',
+            img: 'https://i.ibb.co/RYzxMR5/food.jpg',
             keyword: 'food'
         },{
             name: 'ท่องเที่ยว',
-            img: 'https://i.redd.it/b3esnz5ra34y.jpg',
+            img: 'https://i.ibb.co/ck6ktcK/travel.jpg',
             keyword: 'travel'
         },{
             name: 'Platforms/Software',
-            img: 'https://i.redd.it/b3esnz5ra34y.jpg',
+            img: 'https://i.ibb.co/XLV8r6d/software.jpg',
             keyword: 'platform-software'
 
         },{
             name: 'คอร์สเรียน',
-            img: 'https://i.redd.it/b3esnz5ra34y.jpg',
+            img: 'https://i.ibb.co/XxGzzBq/course.jpg',
             keyword: 'education'
         },{
             name: 'อื่นๆ',
-            img: 'https://i.redd.it/b3esnz5ra34y.jpg',
+            img: 'https://i.ibb.co/c13SrSc/etc.jpg',
             keyword: 'etc'
         }
     ]
